@@ -1,0 +1,25 @@
+plugins {
+    id 'me.champeau.gradle.jmh' version '0.2.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'me.champeau.gradle.jmh'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.dslplatform:dsl-json:0.9.5'
+}
+
+jmh {
+    jmhVersion = '1.11.3'
+    include = '.*Main.*'
+    iterations = 5
+    benchmarkMode = 'AverageTime'
+    fork = 3
+    timeOnIteration = '1s'
+    warmup = '1s'
+    warmupIterations = 1
+}
