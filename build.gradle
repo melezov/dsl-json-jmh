@@ -3,6 +3,7 @@ plugins {
 }
 
 apply plugin: 'java'
+apply plugin: 'scala'
 apply plugin: 'me.champeau.gradle.jmh'
 
 repositories {
@@ -10,16 +11,34 @@ repositories {
 }
 
 dependencies {
+    compile 'com.dslplatform:dsl-client-java:1.4.1'
     compile 'com.dslplatform:dsl-json:0.9.5'
+    compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.6.3'
+    compile 'com.fasterxml.jackson.module:jackson-module-afterburner:2.6.3'
+    
+    compile 'joda-time:joda-time:2.9.1'
+    compile 'org.joda:joda-convert:1.2'
+    compile 'com.google.android:android:4.1.1.4'
+}
+
+sourceSets.main {
+    scala.srcDir "src/main/java"
+    java.srcDirs = []
+}
+
+sourceSets.jmh {
+    scala.srcDir "src/jmh/java"
+    java.srcDirs = []
 }
 
 jmh {
     jmhVersion = '1.11.3'
     include = '.*Main.*'
-    iterations = 5
-    benchmarkMode = 'AverageTime'
     fork = 3
-    timeOnIteration = '1s'
+    benchmarkMode = 'AverageTime'
+    timeUnit = 'us'
+    warmupIterations = 10
     warmup = '1s'
-    warmupIterations = 1
+    iterations = 5
+    timeOnIteration = '1s'
 }
