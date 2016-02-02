@@ -36,7 +36,7 @@ jmh {
     include = '.*Main.*'
     fork = 3
     benchmarkMode = 'AverageTime'
-    timeUnit = 'us'
+    timeUnit = 'ns'
     warmupIterations = 10
     warmup = '1s'
     iterations = 5
